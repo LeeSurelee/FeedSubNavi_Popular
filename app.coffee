@@ -9,12 +9,16 @@ originalLayers =[enter, enter2, enter3, enter4, enter5]
 comments = ["北航故事", "北京小风子", "潘玮柏", "周冬雨","来去之间","用户昵称"]
 
 
-
+spacefor8 = 0
 for layer in originalLayers
 	ratio = Screen.width/375
 	layer.width = Screen.width
 	layer.height = ratio * 449
-	
+
+if Screen.width == 414
+	spacefor8 = 8
+Uper.y = spacefor8
+subNavi.y = 64+ spacefor8
 # print originalLayers[1].height
 # print Screen.width/375 * 449
 #495.7
@@ -63,7 +67,7 @@ homePageContent = ->
 		layer.x = Align.center
 		layer.parent = scroll.content
 		if i < 1
-			layer.y = 106
+			layer.y = 106+ spacefor8
 		else
 			layer.y = homePageItem[medium - 1].y + homePageItem[medium - 1].height + layerGap
 # 		layer.onClick ->
@@ -78,8 +82,8 @@ refresh = ->
 	destroyhomePage()
 	homePageContent()
 	scroll.animate
-		scrollY: 103 -42
-		y: 61
+		scrollY: 0
+		y: 0
 		options: 
 			time: 0.01
 	storiesState = 0
@@ -88,10 +92,10 @@ Original = ->
 	homePageContent()
 	scroll.animate
 		scrollY: 0
-		y: 0
+		y: 0 + spacefor8
 	storiesState = 1
 	subNavi.animate
-		y: 64
+		y: 64 + spacefor8
 
 storyContainer = []
 stories.parent = scroll.content
@@ -121,6 +125,7 @@ Text_1.text = '我的故事'
 avatarBG.borderWidth = 0
 # storyContainer[0].opacity = 0
 
+
 subScroll = new ScrollComponent
 	scrollVertical: false
 	width: Screen.width
@@ -132,6 +137,7 @@ subScroll.mouseWheelEnabled = true
 subScroll.draggable.enabled = false
 subScroll.draggable.propagateEvents = false
 subScroll.sendToBack()
+
 subContent = ->
 	for i in [0..12]
 		sub = i
@@ -281,14 +287,14 @@ scroll.on Events.Scroll, (event) ->
 		if yDelta > 3
 			subState = true
 			subNavi.animate
-				y: 64
+				y: 64+ spacefor8
 			Uper.animate
 				shadowColor: "#dadada"
 	if scroll.scrollY > 84
 		if yDelta < -3
 			subState = false
 			subNavi.animate
-				y: 21
+				y: 21+ spacefor8
 			Uper.animate
 				shadowColor: "#e6e6e6"
 
@@ -306,11 +312,12 @@ scroll.on Events.Scroll, (event) ->
 # 						y: 64
 # 					Uper.animate
 # 						shadowColor: "#e6e6e6"
-	if scroll.scrollY <= 42 && scroll.scrollY > 0 && yDelta <= 0
-		subNavi.y = Utils.modulate(scroll.scrollY, [0,43], [64,21], true)
+	if scroll.scrollY <= 42 && scroll.scrollY > 0&& yDelta <= 0
+# 		print Utils.randomNumber(1,100)
+		subNavi.y = Utils.modulate(scroll.scrollY, [0,43], [64+ spacefor8,21+ spacefor8], true)
 	if scroll.scrollY <= 42 && scroll.scrollY > 0 && yDelta > 0
 		subNavi.animate
-			y: 64
+			y: 64+ spacefor8
 	
 # scroll.onMove (event,layer) ->
 # 	print event.y
@@ -320,12 +327,12 @@ overdrag = ->
 	scroll.onMove (event,layer) ->
 		overdragDistance = event.y
 # 		print event.y
-		if overdragDistance > -103
-			scroll.speedY = Utils.modulate(event.y, [-104,103], [1,0], true)
+		if overdragDistance > -103 - 61
+			scroll.speedY = Utils.modulate(event.y, [-104+61+ spacefor8,103+61+ spacefor8], [1,0], true)
 			scroll.onScrollEnd ->
-				if overdragDistance > -103
+				if overdragDistance > -103 -61
 					scroll.animate
-						scrollY: 103 - 42
+						scrollY: 0
 # 			subNavi.y = 63
 		else
 			scroll.speedY = 1#Utils.modulate(event.y, [-104,-103], [1,1], true)
