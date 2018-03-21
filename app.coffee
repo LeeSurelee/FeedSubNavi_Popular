@@ -148,13 +148,18 @@ subContent = ->
 
 subContent()
 subContainer[0].color = "#FF8200"
+subContainer[0].fontFamily = '-apple-system'
+subContainer[0].fontWeight = 500
 
 indexNumber = 0
 for layer,i in subContainer
 	layer.onClick ->
 		for layer,i in subContainer
 			layer.color = '#333333'
+			layer.fontWeight = ''
 			this.color = '#FF8200'
+			this.fontFamily = '-apple-system'
+			this.fontWeight = 500
 		indexNumber = this.index - 16
 # 		print indexNumber
 		if indexNumber >= 0 and indexNumber <= 3
@@ -168,11 +173,14 @@ for layer,i in subContainer
 				scrollX: subContainer[12].x
 		for layer in TextLayerContainer
 			layer.color = '#333333'
+			layer.fontWeight = ''
 			TextLayerContainer[indexNumber-1].color = '#FF8200'
+			TextLayerContainer[indexNumber-1].fontFamily = '-apple-system'
+			TextLayerContainer[indexNumber-1].fontWeight = 500
 		refresh()
 		overdrag()
-		if indexNumber == 1
-			Original()
+# 		if indexNumber == 1
+# 			Original()
 
 # 		subScroll.speedX = 0
 
@@ -218,12 +226,18 @@ for layer,i in TextLayerContainer
 	layer.onClick ->
 		for layer,i in TextLayerContainer
 			layer.color = '#333333'
+			layer.fontWeight = ''
 			this.color = '#FF8200'
+			this.fontFamily = '-apple-system'
+			this.fontWeight = 500
 		subIndexNumber = Math.floor((this.index - 49)/3 - 7) + 3
 # 		print subIndexNumber
 		for layer,i in subContainer
 			layer.color = '#333333'
+			layer.fontWeight = ''
 			subContainer[subIndexNumber-1].color = '#FF8200'
+			subContainer[subIndexNumber-1].fontFamily = '-apple-system'
+			subContainer[subIndexNumber-1].fontWeight = 500
 		Utils.delay 0.1, ->
 			flow.showPrevious($1)
 		Utils.delay 0.1, ->
@@ -239,7 +253,7 @@ for layer,i in TextLayerContainer
 			if subIndexNumber == 1
 				Utils.delay 0.1, ->
 					refresh()
-					Original()
+# 					Original()
 			else
 				Utils.delay 0.3, ->
 					refresh()
@@ -292,11 +306,11 @@ scroll.on Events.Scroll, (event) ->
 # 						y: 64
 # 					Uper.animate
 # 						shadowColor: "#e6e6e6"
-	if scroll.scrollY <= 42 && scroll.scrollY > 0 && yDelta < 0
+	if scroll.scrollY <= 42 && scroll.scrollY > 0 && yDelta <= 0
 		subNavi.y = Utils.modulate(scroll.scrollY, [0,43], [64,21], true)
-# 	if scroll.scrollY <= 60 && scroll.scrollY > 42 && yDelta > 0
-# 		subNavi.animate
-# 			y: 64
+	if scroll.scrollY <= 42 && scroll.scrollY > 0 && yDelta > 0
+		subNavi.animate
+			y: 64
 	
 # scroll.onMove (event,layer) ->
 # 	print event.y
