@@ -7,7 +7,7 @@ subContainer = []
 subLayers = [sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8, sub9, sub10, sub11, sub12, sub13]
 originalLayers =[enter, enter2, enter3, enter4, enter5]
 comments = ["北航故事", "北京小风子", "潘玮柏", "周冬雨","来去之间","用户昵称"]
-
+Storys = [Story1,Story2,Story3,Story4]
 
 spacefor8 = 0
 for layer in originalLayers
@@ -22,6 +22,25 @@ subNavi.y = 64+ spacefor8
 # print originalLayers[1].height
 # print Screen.width/375 * 449
 #495.7
+StoryScrollH = new ScrollComponent
+	width: Screen.width
+	height: StoryCard.height
+	backgroundColor: null
+	parent: StoryCard
+	draggable: true
+	scrollVertical: false
+	contentInset: right: 13
+
+StoryScrollH.content.on Events.DragStart, ->
+	scroll.content.draggable.enabled = false
+
+StoryScrollH.content.on Events.DragEnd, ->
+	scroll.content.draggable.enabled = true
+	
+for layer in Storys
+	layer.parent = StoryScrollH.content
+	
+
 	
 Framer.Defaults.Animation =
 	time: .3
@@ -59,7 +78,7 @@ destroyhomePage = ->
 
 homePageItem = []
 homePageContent = ->
-	number = 3
+	number = 12
 	homeItemNumber = Math.ceil(number)
 	for i in [0...homeItemNumber]
 		medium = i			
@@ -68,11 +87,20 @@ homePageContent = ->
 		layer.parent = scroll.content
 		if i < 1
 			layer.y = 106+ spacefor8
+		else if i < 8
+			layer.y = homePageItem[medium - 1].y + homePageItem[medium - 1].height + layerGap
+# 			print layer.y
+		else if i == 8 
+			layer.y = homePageItem[medium - 1].y + homePageItem[medium - 1].height + (layerGap*4 + 240)*375/414*ratio
+# 			print layer.y
+			distance = homePageItem[medium - 1].y + homePageItem[medium - 1].height + layerGap
 		else
 			layer.y = homePageItem[medium - 1].y + homePageItem[medium - 1].height + layerGap
 # 		layer.onClick ->
 # 			flow.showNext($2)
 		homePageItem.push(layer)
+		StoryCard.parent = scroll.content
+		StoryCard.y = distance
 # 	homePageItem[homeItemNumber-1].opacity = 0
 # 	homePageItem[homeItemNumber-2].opacity = 0
 homePageContent()
@@ -151,7 +179,7 @@ subContent = ->
 # 		layer.onClick ->
 # 			flow.showNext($2)
 		subContainer.push(layer)
-
+BG.sendToBack()
 subContent()
 subContainer[0].color = "#FF8200"
 subContainer[0].fontFamily = '-apple-system'
@@ -236,7 +264,7 @@ for layer,i in TextLayerContainer
 			this.color = '#FF8200'
 			this.fontFamily = '-apple-system'
 			this.fontWeight = 500
-		subIndexNumber = Math.floor((this.index - 49)/3 - 7) + 3
+		subIndexNumber = Math.floor((this.index - 49)/3 - 7) 
 # 		print subIndexNumber
 		for layer,i in subContainer
 			layer.color = '#333333'
