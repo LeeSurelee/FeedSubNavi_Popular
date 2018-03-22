@@ -328,11 +328,13 @@ overdrag = ->
 		overdragDistance = event.y
 # 		print event.y
 		if overdragDistance > -103 - 61
-			scroll.speedY = Utils.modulate(event.y, [-104+61+ spacefor8,103+61+ spacefor8], [1,0], true)
-			scroll.onScrollEnd ->
-				if overdragDistance > -103 -61
-					scroll.animate
-						scrollY: 0
+			scroll.speedY = Utils.modulate(event.y, [0,103+61+ spacefor8+50], [1,0], true)
+# 			scroll.onScrollEnd ->
+# 				if overdragDistance > -103 -61
+# 					scroll.animate
+# 						scrollY: 0
+# 						options: 
+# 							time: .5
 # 			subNavi.y = 63
 		else
 			scroll.speedY = 1#Utils.modulate(event.y, [-104,-103], [1,1], true)
