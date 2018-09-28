@@ -9,6 +9,7 @@ originalLayers =[enter, enter2, enter3, enter4, enter5]
 comments = ["北航故事", "北京小风子", "潘玮柏", "周冬雨","来去之间","用户昵称"]
 Storys = [Story1,Story2,Story3,Story4]
 
+
 spacefor8 = 0
 for layer in originalLayers
 	ratio = Screen.width/375
@@ -16,9 +17,9 @@ for layer in originalLayers
 	layer.height = ratio * 449
 
 if Screen.width == 414
-	spacefor8 = 8
-Uper.y = spacefor8
-subNavi.y = 64+ spacefor8
+	spacefor8 = 8 - 1
+Uper.y = spacefor8 
+subNavi.y = 64+ spacefor8 
 # print originalLayers[1].height
 # print Screen.width/375 * 449
 #495.7
@@ -90,17 +91,17 @@ homePageContent = ->
 		else if i < 8
 			layer.y = homePageItem[medium - 1].y + homePageItem[medium - 1].height + layerGap
 # 			print layer.y
-		else if i == 8 
-			layer.y = homePageItem[medium - 1].y + homePageItem[medium - 1].height + (layerGap*4 + 240)*375/414*ratio
-# 			print layer.y
-			distance = homePageItem[medium - 1].y + homePageItem[medium - 1].height + layerGap
+# 		else if i == 8 
+# 			layer.y = homePageItem[medium - 1].y + homePageItem[medium - 1].height + (layerGap*4 + 240)*375/414*ratio
+# # 			print layer.y
+# 			distance = homePageItem[medium - 1].y + homePageItem[medium - 1].height + layerGap
 		else
 			layer.y = homePageItem[medium - 1].y + homePageItem[medium - 1].height + layerGap
 # 		layer.onClick ->
 # 			flow.showNext($2)
 		homePageItem.push(layer)
-		StoryCard.parent = scroll.content
-		StoryCard.y = distance
+# 		StoryCard.parent = scroll.content
+# 		StoryCard.y = distance
 # 	homePageItem[homeItemNumber-1].opacity = 0
 # 	homePageItem[homeItemNumber-2].opacity = 0
 homePageContent()
@@ -134,9 +135,9 @@ storyScroll = new ScrollComponent
 	backgroundColor: null
 	visible: false
 	parent: stories
-storyScroll.mouseWheelEnabled = true
-storyScroll.draggable.enabled = false
-storyScroll.draggable.propagateEvents = false
+# storyScroll.mouseWheelEnabled = true
+# storyScroll.draggable.enabled = false
+# storyScroll.draggable.propagateEvents = false
 
 for i in [0...storyItemNumber]
 	layer = story.copy()
